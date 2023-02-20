@@ -16,6 +16,41 @@
   </head>
 
   <body class="bg-gray-900">
+    <?php
+   
+
+   if(isset($_POST["email"])) {
+    $new_email = $_POST["email"];
+    $new_lastname= $_POST["lastname"];
+    $new_firstname= $_POST["firstname"];
+    $new_password=$_POST["password"];
+
+    include "config.php";
+    $mysqli = config();
+
+    $new_email=$mysqli->real_escape_string($new_email);
+    $new_lastname=$mysqli->real_escape_string($new_lastname);
+    $new_firstname=$mysqli->real_escape_string($new_firstname);
+    $new_password=$mysqli->real_escape_string($new_password);
+
+    $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+    $lInstructionSql = "INSERT INTO users(`ID`, `EMAIL`, `LASTNAME`, `FIRSTNAME`, `PASSWORD`, `AVATAR`)
+    VALUES (NULL,"
+    . "'" . $new_email . "',"
+    . "'" . $new_lastname . "',"
+    . "'" . $new_firstname . "',"
+    . "'" . $new_password . "',"
+    . "NULL);";
+
+    $ok = $mysqli->query($lInstructionSql);
+    if (!$ok) {
+      echo "Sorry. Registration failed." . $mysqli->error;
+    } else {
+      header("location:login.html");
+    }
+   }
+    ?>
     <div class="relative">
       <h1
         class="mukta text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-700 text-6xl fixed p-10 top-0 left-0 right-0 bg-gray-900"
@@ -27,31 +62,30 @@
     <div class="flex flex-col h-screen font-mono">
       <div class="w-full px-10 text-center m-auto sm:max-w-[450px]">
         <h1 class="text-gray-700 text-xl">Signup</h1>
-        <form action="" class="flex flex-col text-gray-400">
+        <form action="signup.php" method="post" class="flex flex-col text-gray-400">
           <input
             type="email"
             placeholder="Email"
+            name="email"
             class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
 
           <input
             type="text"
             placeholder="Lastname"
+            name="lastname"
             class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
           <input
             type="text"
             placeholder="Firstname"
-            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
-          />
-          <input
-            type="text"
-            placeholder="Username"
+            name="firstname"
             class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
           <input
             type="password"
             placeholder="Password"
+            name="password"
             class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
           <button
