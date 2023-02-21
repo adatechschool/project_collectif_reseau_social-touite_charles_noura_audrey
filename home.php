@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION["connected_id"])) {
   $userId = intval($_SESSION["connected_id"]);
 } else {
-  echo $userId;
+ header("location:login.php");
   exit();
 }
 ?>
@@ -25,6 +25,13 @@ if (isset($_SESSION["connected_id"])) {
   </head>
 
   <body class="bg-gray-900">
+    <?php
+    include "config.php";
+    $mysqli=config();
+   $laQuestionEnSql = "SELECT * FROM users WHERE ID = '$userId' ";
+   $lesInformations = $mysqli->query($laQuestionEnSql);
+    $user = $lesInformations->fetch_assoc();
+   ?>
     <header
       class="flex justify-between px-10 py-5 border-b-[1px] border-b-gray-700"
     >
@@ -58,8 +65,9 @@ if (isset($_SESSION["connected_id"])) {
       />
       <p class="text-xl mt-5">
         <span class="text-gray-500">Bienvenue</span>
-        <span class="text-gray-200">Rantan Plan</span>
-        <?php echo $userId ?>
+        <span class="text-gray-200"><?php echo $user["LASTNAME"]?></span>
+        <span class="text-gray-200"><?php echo $user["FIRSTNAME"]?></span>
+      
       </p>
       <form action="" class="w-full m-5 text-gray-400">
         <textarea
