@@ -24,6 +24,7 @@
     $new_lastname= $_POST["lastname"];
     $new_firstname= $_POST["firstname"];
     $new_password=$_POST["password"];
+    $new_repeat_password=$_POST["repeat_password"];
 
     include "config.php";
     $mysqli = config();
@@ -32,24 +33,31 @@
     $new_lastname=$mysqli->real_escape_string($new_lastname);
     $new_firstname=$mysqli->real_escape_string($new_firstname);
     $new_password=$mysqli->real_escape_string($new_password);
-
-    $new_password = password_hash($new_password, PASSWORD_DEFAULT);
-
-    $lInstructionSql = "INSERT INTO users(`ID`, `EMAIL`, `LASTNAME`, `FIRSTNAME`, `PASSWORD`, `AVATAR`)
-    VALUES (NULL,"
-    . "'" . $new_email . "',"
-    . "'" . $new_lastname . "',"
-    . "'" . $new_firstname . "',"
-    . "'" . $new_password . "',"
-    . "NULL);";
-
-    $ok = $mysqli->query($lInstructionSql);
-    if (!$ok) {
-      echo "Sorry. Registration failed." . $mysqli->error;
+ 
+  if($new_password === $new_repeat_password){
+    $select = mysqli_query($mysqli,"SELECT * FROM users WHERE EMAIL= '".$new_email."'");
+    if(mysqli_num_rows($select)){
+      exit("Ce nom d'utilisateur existe déjà");
     } else {
-      header("location:login.html");
-    }
-   }
+        $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+        $lInstructionSql = "INSERT INTO users(`ID`, `EMAIL`, `LASTNAME`, `FIRSTNAME`, `PASSWORD`, `AVATAR`)
+        VALUES (NULL,"
+        . "'" . $new_email . "',"
+        . "'" . $new_lastname . "',"
+        . "'" . $new_firstname . "',"
+        . "'" . $new_password . "',"
+        . "NULL);";
+
+        $ok = $mysqli->query($lInstructionSql);
+        if (!$ok) {
+             echo "Sorry. Registration failed." . $mysqli->error;
+        } else {
+                 header("location:login.html");
+                }
+  }} else {echo '<script type="text/javascript">alert("Passwords different"); </script>';
+  }}
+   
     ?>
     <div class="relative">
       <h1
@@ -86,6 +94,12 @@
             type="password"
             placeholder="Password"
             name="password"
+            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
+          />
+          <input
+            type="password"
+            placeholder="Repeat Password"
+            name="repeat_password"
             class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
           <button
