@@ -46,7 +46,7 @@ if (isset($_SESSION["connected_id"])) {
   </header>
 
   <div class="flex flex-col items-center m-10 font-mono mx-auto px-10 sm:max-w-3xl">
-    <img class="rounded-full w-20 object-cover" src="/img/avatar.png" alt="" />
+    <img class="rounded-full w-20 object-cover" src="./img/avatar.png" alt="" />
     <p class="text-xl mt-5">
       <span class="text-gray-500">Welcome</span>
       <span class="text-gray-200"><?php echo $user["LASTNAME"] ?></span>
@@ -68,7 +68,7 @@ if (isset($_SESSION["connected_id"])) {
 
     <div class="flex mt-10">
       <div>
-        <img class="rounded-full w-60 object-cover" src="/img/avatar.png" alt="" />
+        <img class="rounded-full w-60 object-cover" src="./img/avatar.png" alt="" />
       </div>
 
       <div class="text ml-5">
