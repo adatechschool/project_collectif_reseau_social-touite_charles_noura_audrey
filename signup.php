@@ -39,7 +39,7 @@
     if(mysqli_num_rows($select)){
       exit("Ce nom d'utilisateur existe déjà");
     } else {
-        $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+        $new_password = md5($new_password);
 
         $lInstructionSql = "INSERT INTO users(`ID`, `EMAIL`, `LASTNAME`, `FIRSTNAME`, `PASSWORD`, `AVATAR`)
         VALUES (NULL,"
@@ -53,7 +53,7 @@
         if (!$ok) {
              echo "Sorry. Registration failed." . $mysqli->error;
         } else {
-                 header("location:login.html");
+                 header("location:login.php");
                 }
   }} else {echo '<script type="text/javascript">alert("Passwords different"); </script>';
   }}
