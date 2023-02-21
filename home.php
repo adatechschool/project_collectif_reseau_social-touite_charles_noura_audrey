@@ -47,17 +47,18 @@ if (isset($_SESSION["connected_id"])) {
         >
           Edit profil
         </button>
-        <button
+        <a href="logout.php"><button
           class="text-center text-gray-400 px-5 h-10 rounded-xl border-[1px] border-purple-500 focus:outline-none focus:border-purple-500 transition-transform hover:scale-[1.03] duration-500 ease-out"
         >
           Logout
-        </button>
+        </button></a>
       </div>
     </header>
 
     <div
       class="flex flex-col items-center m-10 font-mono mx-auto p-10 sm:max-w-3xl"
     >
+    
       <img
         class="rounded-full w-20 object-cover"
         src="./img/avatar.png"
@@ -69,8 +70,8 @@ if (isset($_SESSION["connected_id"])) {
         <span class="text-gray-200"><?php echo $user["FIRSTNAME"]?></span>
       
       </p>
-      <form action="" class="w-full m-5 text-gray-400">
-        <textarea
+      <form action="home.php" method="post" class="w-full m-5 text-gray-400">
+        <textarea name="message"
           class="w-full placeholder-gray-700 mt-5 rounded-xl h-60 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
         ></textarea>
         <div class="flex justify-between mt-5">
