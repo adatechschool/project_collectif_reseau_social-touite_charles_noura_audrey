@@ -15,7 +15,43 @@
     <title>Document</title>
   </head>
 
-  <body class="bg-gray-900">
+  <body class="bg-gray-200">
+    <?php
+    
+    
+    $enCoursDeTraitement = isset($_POST['email']);
+    if ($enCoursDeTraitement) {
+      $emailAVerifier = $_POST["email"];
+      $passwordAVerifier = $_POST["password"];
+      
+      include "config.php";
+      $mysqli=config();
+
+      $emailAVerifier = $mysqli->real_escape_string($emailAVerifier);
+      $passwordAVerifier = $mysqli->real_escape_string($passwordAVerifier);
+
+      $passwordAVerifier=md5($passwordAVerifier);
+      echo $passwordAVerifier;
+
+      $lInstructionSql = "SELECT * "
+      . "FROM users "
+      . "WHERE "
+      . "EMAIL LIKE '" . $emailAVerifier . "'"
+      ;
+      $res = $mysqli->query($lInstructionSql);
+      $user = $res->fetch_assoc();
+      if ( ! $user OR $user["PASSWORD"] != $passwordAVerifier)
+      {
+        echo '<script type="text/javascript">alert("connexion a échoué"); </script>';
+                            
+      } else
+      {
+        echo '<script type="text/javascript">alert("Succès"); </script>';
+          $_SESSION['connected_id']=$user['ID'];
+      }
+    }
+
+    ?>
   
       <h1
         class="mukta text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-700 text-6xl fixed p-10 top-0 left-0 right-0 bg-gray-900"
@@ -26,16 +62,18 @@
     <div class="flex flex-col h-screen font-mono">
       <div class="w-full px-10 text-center m-auto sm:max-w-[450px]">
         <h1 class="text-gray-700 text-xl">Login</h1>
-        <form action="" class="flex flex-col text-gray-400">
+        <form action="login.php" method="post" class="flex flex-col text-gray-400">
           <input
             type="email"
             placeholder="Email"
+            name="email"
             class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
 
           <input
             type="password"
             placeholder="Password"
+            name="password"
             class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
           <button
