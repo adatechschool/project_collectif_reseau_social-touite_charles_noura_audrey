@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,10 +15,10 @@
       href="https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap"
       rel="stylesheet"
     />
-    <title>Document</title>
+    <title>Touiter - Login</title>
   </head>
 
-  <body class="bg-gray-200">
+  <body class="bg-gray-900">
     <?php
     
     
@@ -31,7 +34,6 @@
       $passwordAVerifier = $mysqli->real_escape_string($passwordAVerifier);
 
       $passwordAVerifier=md5($passwordAVerifier);
-      echo $passwordAVerifier;
 
       $lInstructionSql = "SELECT * "
       . "FROM users "
@@ -47,7 +49,10 @@
       } else
       {
         echo '<script type="text/javascript">alert("Succès"); </script>';
-          $_SESSION['connected_id']=$user['ID'];
+        $_SESSION['connected_id']=$user['ID'];
+        echo $user["ID"];
+        header("location:home.php");
+          
       }
     }
 
@@ -56,7 +61,7 @@
       <h1
         class="mukta text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-700 text-6xl fixed p-10 top-0 left-0 right-0 bg-gray-900"
       >
-        Touite.
+        Touiter.
       </h1>
 
     <div class="flex flex-col h-screen font-mono">

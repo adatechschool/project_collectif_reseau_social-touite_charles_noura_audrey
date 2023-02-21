@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION["connected_id"])) {
+  $userId = intval($_SESSION["connected_id"]);
+} else {
+  echo $userId;
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -44,12 +53,13 @@
     >
       <img
         class="rounded-full w-20 object-cover"
-        src="/img/avatar.png"
+        src="./img/avatar.png"
         alt=""
       />
       <p class="text-xl mt-5">
         <span class="text-gray-500">Bienvenue</span>
         <span class="text-gray-200">Rantan Plan</span>
+        <?php echo $userId ?>
       </p>
       <form action="" class="w-full m-5 text-gray-400">
         <textarea
@@ -73,7 +83,7 @@
     <div class="flex mx-auto px-10 sm:max-w-3xl">
       <img
         class="rounded-full w-12 object-cover"
-        src="/img/avatar.png"
+        src="./img/avatar.png"
         alt=""
       />
       <p></p>
