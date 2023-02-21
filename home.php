@@ -19,16 +19,61 @@ if (isset($_SESSION["connected_id"])) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap" rel="stylesheet" />
-  <title>Document</title>
+  <title>Touite - Home</title>
 </head>
 
 <body class="bg-gray-900">
   <?php
+
   include "config.php";
   $mysqli = config();
-  $laQuestionEnSql = "SELECT * FROM users WHERE ID = '$userId' ";
-  $lesInformations = $mysqli->query($laQuestionEnSql);
+
+  $fetchUser = "SELECT * FROM users WHERE ID = '$userId' ";
+  $lesInformations = $mysqli->query($fetchUser);
   $user = $lesInformations->fetch_assoc();
+
+
+  if (isset($_POST['message'])) {
+
+    $postContent = $_POST['message'];
+    $postContent = $mysqli->real_escape_string($postContent);
+
+    $lInstructionSql = "INSERT INTO messages "
+
+      . "(ID, ID_USER, CONTENT, CREATED_AT ) "
+      . "VALUES (NULL, "
+      . $userId . ", "
+      . "'" . $postContent . "', "
+      . "NOW());";
+
+    $ok = $mysqli->query($lInstructionSql);
+    if (!$ok) {
+      echo "Impossible d'ajouter le message: " . $mysqli->error;
+    } else {
+      echo "Message posté";
+    }
+  }
+
+  //  COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+  //  LEFT JOIN likes      ON likes.post_id  = posts.id 
+  //  WHERE posts.user_id='$userId' 
+  //  GROUP BY posts.id
+  //  ORDER BY posts.created DESC  
+  // $fetchData = "
+  // SELECT messages.CONTENT, messages.CREATED_AT, messages.ID_USER, messages.ID, users.LASTNAME, users.FIRSTNAME,
+  // FROM messages
+  // JOIN users ON users.ID = messages.ID_USER
+  // ";
+
+  $fetchData = "
+  SELECT * FROM messages
+  JOIN users ON users.ID = messages.ID_USER
+  ";
+  // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+  // FROM Orders
+  // INNER JOIN Customers
+  // ON Orders.CustomerID=Customers.CustomerID;
+
   ?>
   <header class="flex justify-between px-10 py-5 border-b-[1px] border-b-gray-700">
     <h1 class="mukta text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-700 text-3xl bg-gray-900">
@@ -53,7 +98,7 @@ if (isset($_SESSION["connected_id"])) {
       <span class="text-gray-200"><?php echo $user["FIRSTNAME"] ?></span>
     </p>
     <form action="home.php" method="post" class="w-full m-5 text-gray-400">
-      <textarea class="w-full placeholder-gray-700 mt-5 rounded-xl h-60 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"></textarea>
+      <textarea name="message" class="w-full placeholder-gray-700 mt-5 rounded-xl h-60 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"></textarea>
       <div class="flex justify-between mt-5">
         <input type="file" class="block text-sm text-slate-500 file:py-2 file:px-4 file:rounded-xl file:border file:border-solid file:border-gray-700 file:bg-gray-900 file:text-sm file:text-gray-400 hover:file:bg-violet-100" />
         <button type="submit" class="text-center text-gray-400 px-5 rounded-xl h-10 focus:outline-none focus:border-purple-500 bg-gradient-to-r from-purple-500 to-indigo-700 transition-transform hover:scale-[1.03] duration-500 ease-out">
@@ -62,72 +107,79 @@ if (isset($_SESSION["connected_id"])) {
       </div>
     </form>
   </div>
+  <?php
+  $lesInformations = $mysqli->query($fetchData);
+  if (!$lesInformations) {
+    echo ("Échec de la requete : " . $mysqli->error);
+  }
+  while ($post = $lesInformations->fetch_assoc()) {
 
-  <div class="message flex flex-col justify-between mx-auto px-10 text-gray-400 text-sm font-mono sm:max-w-3xl">
-    <div class="border-[0.5px] border-solid border-gray-700"></div>
+    // echo "<pre>" . print_r($post, 1) . "</pre>";
+  ?>
+    <div class="message flex flex-col justify-between mx-auto px-10 text-gray-400 text-sm font-mono sm:max-w-3xl">
+      <div class="border-[0.5px] border-solid border-gray-700"></div>
 
-    <div class="flex mt-10">
-      <div>
-        <img class="rounded-full w-60 object-cover" src="./img/avatar.png" alt="" />
-      </div>
+      <div class="flex mt-10">
+        <div>
+          <img class="rounded-full w-10 object-cover" src="./img/avatar.png" alt="" />
+        </div>
 
-      <div class="text ml-5">
-        <p class="text-lg text-gray-200">
-          Rantan Plan <span class="text-gray-700">• Fev 21</span>
-        </p>
-        <p class="mt-5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-          ullamcorper, lectus ac dictum vulputate, diam quam dapibus purus,
-          nec congue est lorem nec magna. Pellentesque dignissim quis leo a
-          molestie. Aenean eu nisi vitae elit aliquet fermentum quis eget
-          orci. Sed porttitor in ligula accumsan malesuada. Etiam porttitor.
-        </p>
-        <div class="icons flex mb-10">
-          <div class="icon-message flex w-6 mt-5">
-            <img src="./img/icon-message.svg" alt="" />
-            <p class="ml-2">20</p>
-          </div>
-          <div class="icon-heart flex w-6 mt-5 ml-12">
-            <img src="./img/icon-heart.svg" alt="" />
-            <p class="ml-2">20</p>
+        <div class="text ml-5">
+          <p class="text-lg">
+            <span class="text-gray-200"><?php echo $post["LASTNAME"] ?></span>
+            <span class="text-gray-200"><?php echo $post["FIRSTNAME"] ?></span>
+            <span class="text-gray-700"><?php echo $post["CREATED_AT"] ?></span>
+          </p>
+          <p class="mt-5">
+            <?php echo $post["CONTENT"] ?>
+          </p>
+          <div class="icons flex mb-10">
+            <div class="icon-message flex w-6 mt-5">
+              <img src="./img/icon-message.svg" alt="" />
+              <p class="ml-2">20</p>
+            </div>
+            <div class="icon-heart flex w-6 mt-5 ml-12">
+              <img src="./img/icon-heart.svg" alt="" />
+              <p class="ml-2">20</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="message flex flex-col justify-between mx-auto px-10 text-gray-400 text-sm font-mono sm:max-w-3xl">
-    <div class="border-[0.5px] border-solid border-gray-700"></div>
+    <!-- <div class="message flex flex-col justify-between mx-auto px-10 text-gray-400 text-sm font-mono sm:max-w-3xl">
+      <div class="border-[0.5px] border-solid border-gray-700"></div>
 
-    <div class="flex mt-10">
-      <div>
-        <img class="rounded-full w-60 object-cover" src="/img/avatar.png" alt="" />
-      </div>
+      <div class="flex mt-10">
+        <div>
+          <img class="rounded-full w-60 object-cover" src="./img/avatar.png" alt="" />
+        </div>
 
-      <div class="text ml-5">
-        <p class="text-lg text-gray-200">
-          Rantan Plan <span class="text-gray-700">• Fev 21</span>
-        </p>
-        <p class="mt-5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-          ullamcorper, lectus ac dictum vulputate, diam quam dapibus purus,
-          nec congue est lorem nec magna. Pellentesque dignissim quis leo a
-          molestie. Aenean eu nisi vitae elit aliquet fermentum quis eget
-          orci. Sed porttitor in ligula accumsan malesuada. Etiam porttitor.
-        </p>
-        <div class="icons flex mb-10">
-          <div class="icon-message flex w-6 mt-5">
-            <img src="./img/icon-message.svg" alt="" />
-            <p class="ml-2">20</p>
-          </div>
-          <div class="icon-heart flex w-6 mt-5 ml-12">
-            <img src="./img/icon-heart.svg" alt="" />
-            <p class="ml-2">20</p>
+        <div class="text ml-5">
+          <p class="text-lg text-gray-200">
+            Rantan Plan <span class="text-gray-700">• Fev 21</span>
+          </p>
+          <p class="mt-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+            ullamcorper, lectus ac dictum vulputate, diam quam dapibus purus,
+            nec congue est lorem nec magna. Pellentesque dignissim quis leo a
+            molestie. Aenean eu nisi vitae elit aliquet fermentum quis eget
+            orci. Sed porttitor in ligula accumsan malesuada. Etiam porttitor.
+          </p>
+          <div class="icons flex mb-10">
+            <div class="icon-message flex w-6 mt-5">
+              <img src="./img/icon-message.svg" alt="" />
+              <p class="ml-2">20</p>
+            </div>
+            <div class="icon-heart flex w-6 mt-5 ml-12">
+              <img src="./img/icon-heart.svg" alt="" />
+              <p class="ml-2">20</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div> -->
+  <?php } ?>
 </body>
 
 </html>
