@@ -3,135 +3,131 @@ session_start();
 if (isset($_SESSION["connected_id"])) {
   $userId = intval($_SESSION["connected_id"]);
 } else {
- header("location:login.php");
+  header("location:login.php");
   exit();
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./css/index.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap"
-      rel="stylesheet"
-    />
-    <title>Document</title>
-  </head>
 
-  <body class="bg-gray-900">
-    <?php
-    include "config.php";
-    $mysqli=config();
-   $laQuestionEnSql = "SELECT * FROM users WHERE ID = '$userId' ";
-   $lesInformations = $mysqli->query($laQuestionEnSql);
-    $user = $lesInformations->fetch_assoc();
-   ?>
-    <header
-      class="flex justify-between px-10 py-5 border-b-[1px] border-b-gray-700"
-    >
-      <h1
-        class="mukta text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-700 text-3xl bg-gray-900"
-      >
-        Touiter.
-      </h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/index.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap" rel="stylesheet" />
+  <title>Document</title>
+</head>
 
-      <div>
-        <button
-          class="text-center text-gray-400 px-5 h-10 mr-5 rounded-xl focus:outline-none focus:border-purple-500 border-[1px] border-purple-500 transition-transform hover:scale-[1.03] duration-500 ease-out"
-        >
-          Edit profil
-        </button>
-        <a href="logout.php"><button
-          class="text-center text-gray-400 px-5 h-10 rounded-xl border-[1px] border-purple-500 focus:outline-none focus:border-purple-500 transition-transform hover:scale-[1.03] duration-500 ease-out"
-        >
+<body class="bg-gray-900">
+  <?php
+  include "config.php";
+  $mysqli = config();
+  $laQuestionEnSql = "SELECT * FROM users WHERE ID = '$userId' ";
+  $lesInformations = $mysqli->query($laQuestionEnSql);
+  $user = $lesInformations->fetch_assoc();
+  ?>
+  <header class="flex justify-between px-10 py-5 border-b-[1px] border-b-gray-700">
+    <h1 class="mukta text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-700 text-3xl bg-gray-900">
+      Touiter.
+    </h1>
+
+    <div>
+      <button class="text-center text-gray-400 px-5 h-10 mr-5 rounded-xl focus:outline-none focus:border-purple-500 border-[1px] border-purple-500 transition-transform hover:scale-[1.03] duration-500 ease-out">
+        Edit profil
+      </button>
+      <a href="logout.php"><button class="text-center text-gray-400 px-5 h-10 rounded-xl border-[1px] border-purple-500 focus:outline-none focus:border-purple-500 transition-transform hover:scale-[1.03] duration-500 ease-out">
           Logout
         </button></a>
-      </div>
-    </header>
+    </div>
+  </header>
 
-    <div
-      class="flex flex-col items-center m-10 font-mono mx-auto p-10 sm:max-w-3xl"
-    >
-    
-      <img
-        class="rounded-full w-20 object-cover"
-        src="./img/avatar.png"
-        alt=""
-      />
-      <p class="text-xl mt-5">
-        <span class="text-gray-500">Bienvenue</span>
-        <span class="text-gray-200"><?php echo $user["LASTNAME"]?></span>
-        <span class="text-gray-200"><?php echo $user["FIRSTNAME"]?></span>
-      
-      </p>
-      <form action="home.php" method="post" class="w-full m-5 text-gray-400">
-        <textarea name="message"
-          class="w-full placeholder-gray-700 mt-5 rounded-xl h-60 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
-        ></textarea>
-        <div class="flex justify-between mt-5">
-          <input
-            type="file"
-            class="block text-sm text-slate-500 file:py-2 file:px-4 file:rounded-xl file:border file:border-solid file:border-gray-700 file:bg-gray-900 file:text-sm file:text-gray-400 hover:file:bg-violet-100"
-          />
-          <button
-            type="submit"
-            class="text-center text-gray-400 px-5 rounded-xl h-10 focus:outline-none focus:border-purple-500 bg-gradient-to-r from-purple-500 to-indigo-700 transition-transform hover:scale-[1.03] duration-500 ease-out"
-          >
-            Touit
-          </button>
+  <div class="flex flex-col items-center m-10 font-mono mx-auto px-10 sm:max-w-3xl">
+    <img class="rounded-full w-20 object-cover" src="/img/avatar.png" alt="" />
+    <p class="text-xl mt-5">
+      <span class="text-gray-500">Welcome</span>
+      <span class="text-gray-200"><?php echo $user["LASTNAME"] ?></span>
+      <span class="text-gray-200"><?php echo $user["FIRSTNAME"] ?></span>
+    </p>
+    <form action="home.php" method="post" class="w-full m-5 text-gray-400">
+      <textarea class="w-full placeholder-gray-700 mt-5 rounded-xl h-60 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"></textarea>
+      <div class="flex justify-between mt-5">
+        <input type="file" class="block text-sm text-slate-500 file:py-2 file:px-4 file:rounded-xl file:border file:border-solid file:border-gray-700 file:bg-gray-900 file:text-sm file:text-gray-400 hover:file:bg-violet-100" />
+        <button type="submit" class="text-center text-gray-400 px-5 rounded-xl h-10 focus:outline-none focus:border-purple-500 bg-gradient-to-r from-purple-500 to-indigo-700 transition-transform hover:scale-[1.03] duration-500 ease-out">
+          Touit
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="message flex flex-col justify-between mx-auto px-10 text-gray-400 text-sm font-mono sm:max-w-3xl">
+    <div class="border-[0.5px] border-solid border-gray-700"></div>
+
+    <div class="flex mt-10">
+      <div>
+        <img class="rounded-full w-60 object-cover" src="/img/avatar.png" alt="" />
+      </div>
+
+      <div class="text ml-5">
+        <p class="text-lg text-gray-200">
+          Rantan Plan <span class="text-gray-700">• Fev 21</span>
+        </p>
+        <p class="mt-5">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          ullamcorper, lectus ac dictum vulputate, diam quam dapibus purus,
+          nec congue est lorem nec magna. Pellentesque dignissim quis leo a
+          molestie. Aenean eu nisi vitae elit aliquet fermentum quis eget
+          orci. Sed porttitor in ligula accumsan malesuada. Etiam porttitor.
+        </p>
+        <div class="icons flex mb-10">
+          <div class="icon-message flex w-6 mt-5">
+            <img src="./img/icon-message.svg" alt="" />
+            <p class="ml-2">20</p>
+          </div>
+          <div class="icon-heart flex w-6 mt-5 ml-12">
+            <img src="./img/icon-heart.svg" alt="" />
+            <p class="ml-2">20</p>
+          </div>
         </div>
-      </form>
-    </div>
-
-    <div class="flex mx-auto px-10 sm:max-w-3xl">
-      <img
-        class="rounded-full w-12 object-cover"
-        src="./img/avatar.png"
-        alt=""
-      />
-      <p></p>
-    </div>
-
-    <!-- <div class="flex flex-col h-screen font-mono">
-      <div class="w-full px-10 text-center m-auto sm:max-w-[450px]">
-        <h1 class="text-gray-700 text-xl">Signup</h1>
-        <form action="" class="flex flex-col text-gray-400">
-          <input
-            type="email"
-            placeholder="Email"
-            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
-          />
-
-          <input
-            type="text"
-            placeholder="Lastname"
-            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
-          />
-          <input
-            type="text"
-            placeholder="Firstname"
-            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
-          />
-     
-          <input
-            type="password"
-            placeholder="Password"
-            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
-          />
-          <button
-            type="submit"
-            class="text-center text-gray-400 mt-5 rounded-xl h-14 focus:outline-none focus:border-purple-500 bg-gradient-to-r from-purple-500 to-indigo-700 transition-transform hover:scale-[1.03] duration-500 ease-out"
-          >
-            Register
-          </button>
-        </form>
       </div>
-    </div> -->
-  </body>
+    </div>
+  </div>
+
+  <div class="message flex flex-col justify-between mx-auto px-10 text-gray-400 text-sm font-mono sm:max-w-3xl">
+    <div class="border-[0.5px] border-solid border-gray-700"></div>
+
+    <div class="flex mt-10">
+      <div>
+        <img class="rounded-full w-60 object-cover" src="/img/avatar.png" alt="" />
+      </div>
+
+      <div class="text ml-5">
+        <p class="text-lg text-gray-200">
+          Rantan Plan <span class="text-gray-700">• Fev 21</span>
+        </p>
+        <p class="mt-5">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+          ullamcorper, lectus ac dictum vulputate, diam quam dapibus purus,
+          nec congue est lorem nec magna. Pellentesque dignissim quis leo a
+          molestie. Aenean eu nisi vitae elit aliquet fermentum quis eget
+          orci. Sed porttitor in ligula accumsan malesuada. Etiam porttitor.
+        </p>
+        <div class="icons flex mb-10">
+          <div class="icon-message flex w-6 mt-5">
+            <img src="./img/icon-message.svg" alt="" />
+            <p class="ml-2">20</p>
+          </div>
+          <div class="icon-heart flex w-6 mt-5 ml-12">
+            <img src="./img/icon-heart.svg" alt="" />
+            <p class="ml-2">20</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
