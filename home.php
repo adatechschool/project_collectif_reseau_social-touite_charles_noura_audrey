@@ -59,7 +59,7 @@ if (isset($_SESSION["connected_id"])) {
   JOIN users ON users.ID = messages.ID_USER
   ORDER BY messages.CREATED_AT DESC
   ";
- 
+
 
   ?>
   <header class="flex justify-between px-10 py-5 border-b-[1px] border-b-gray-700">
@@ -78,7 +78,7 @@ if (isset($_SESSION["connected_id"])) {
   </header>
 
   <div class="flex flex-col items-center m-10 font-mono mx-auto px-10 sm:max-w-3xl">
-    <img class="rounded-full w-20 object-cover" src="<?php echo $user["AVATAR"] ?>" alt="" />
+    <img class="rounded-full w-20 h-20 object-cover" src="<?php echo $user["AVATAR"] ?>" alt="" />
     <p class="text-xl mt-5">
       <span class="text-gray-500">Welcome</span>
       <span class="text-gray-200"><?php echo $user["LASTNAME"] ?></span>
@@ -107,9 +107,9 @@ if (isset($_SESSION["connected_id"])) {
       <div class="border-[0.5px] border-solid border-gray-700"></div>
 
       <div class="flex mt-10">
-        <div class="w-10 h-10">
-          <img class="rounded-full w-10 h-10 object-cover" src="<?php echo $post["AVATAR"] ?>" alt="" />
-        </div>
+
+        <img class="rounded-full w-10 h-10 object-cover" src="<?php echo $post["AVATAR"] ?>" alt="" />
+
 
         <div class="text ml-5">
           <p class="text-lg">
@@ -134,38 +134,6 @@ if (isset($_SESSION["connected_id"])) {
       </div>
     </div>
 
-    <!-- <div class="message flex flex-col justify-between mx-auto px-10 text-gray-400 text-sm font-mono sm:max-w-3xl">
-      <div class="border-[0.5px] border-solid border-gray-700"></div>
-
-      <div class="flex mt-10">
-        <div>
-          <img class="rounded-full w-60 object-cover" src="./img/avatar.png" alt="" />
-        </div>
-
-        <div class="text ml-5">
-          <p class="text-lg text-gray-200">
-            Rantan Plan <span class="text-gray-700">• Fev 21</span>
-          </p>
-          <p class="mt-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-            ullamcorper, lectus ac dictum vulputate, diam quam dapibus purus,
-            nec congue est lorem nec magna. Pellentesque dignissim quis leo a
-            molestie. Aenean eu nisi vitae elit aliquet fermentum quis eget
-            orci. Sed porttitor in ligula accumsan malesuada. Etiam porttitor.
-          </p>
-          <div class="icons flex mb-10">
-            <div class="icon-message flex w-6 mt-5">
-              <img src="./img/icon-message.svg" alt="" />
-              <p class="ml-2">20</p>
-            </div>
-            <div class="icon-heart flex w-6 mt-5 ml-12">
-              <img src="./img/icon-heart.svg" alt="" />
-              <p class="ml-2">20</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   <?php } ?>
 </body>
 
