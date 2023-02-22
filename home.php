@@ -54,25 +54,11 @@ if (isset($_SESSION["connected_id"])) {
     }
   }
 
-  //  COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
-  //  LEFT JOIN likes      ON likes.post_id  = posts.id 
-  //  WHERE posts.user_id='$userId' 
-  //  GROUP BY posts.id
-  //  ORDER BY posts.created DESC  
-  // $fetchData = "
-  // SELECT messages.CONTENT, messages.CREATED_AT, messages.ID_USER, messages.ID, users.LASTNAME, users.FIRSTNAME,
-  // FROM messages
-  // JOIN users ON users.ID = messages.ID_USER
-  // ";
-
   $fetchData = "
   SELECT * FROM messages
   JOIN users ON users.ID = messages.ID_USER
   ";
-  // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
-  // FROM Orders
-  // INNER JOIN Customers
-  // ON Orders.CustomerID=Customers.CustomerID;
+ 
 
   ?>
   <header class="flex justify-between px-10 py-5 border-b-[1px] border-b-gray-700">
@@ -91,7 +77,7 @@ if (isset($_SESSION["connected_id"])) {
   </header>
 
   <div class="flex flex-col items-center m-10 font-mono mx-auto px-10 sm:max-w-3xl">
-    <img class="rounded-full w-20 object-cover" src="./img/avatar.png" alt="" />
+    <img class="rounded-full w-20 object-cover" src="<?php echo $user["AVATAR"] ?>" alt="" />
     <p class="text-xl mt-5">
       <span class="text-gray-500">Welcome</span>
       <span class="text-gray-200"><?php echo $user["LASTNAME"] ?></span>
@@ -121,7 +107,7 @@ if (isset($_SESSION["connected_id"])) {
 
       <div class="flex mt-10">
         <div>
-          <img class="rounded-full w-10 object-cover" src="./img/avatar.png" alt="" />
+          <img class="rounded-full w-10 object-cover" src="<?php echo $post["AVATAR"] ?>" alt="" />
         </div>
 
         <div class="text ml-5">

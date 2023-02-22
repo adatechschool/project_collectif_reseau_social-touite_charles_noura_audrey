@@ -37,7 +37,7 @@
       //Tableau des extensions que l'on accepte
       $extensions = ['jpg', 'png', 'jpeg', 'gif'];
 
-      $maxSize = 400000;
+      $maxSize = 4000000;
 
       if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
         // Pour cela on va utiliser la fonction PHP uniqid(). Elle attend 2 paramètres. Le premier est une chaîne de caractère qui servira de préfixe et le deuxième est un booléen (true / false) qui permets d’augmenter la taille de la chaîne générée pour plus de sécurité.
@@ -81,8 +81,8 @@
         if (!$ok) {
           echo "Sorry. Registration failed." . $mysqli->error;
         } else {
-          // header("location:login.php");
-          echo "OK";
+          header("location:login.php");
+          // echo "OK";
         }
       }
     } else {
