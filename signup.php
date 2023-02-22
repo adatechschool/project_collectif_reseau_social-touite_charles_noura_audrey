@@ -95,7 +95,7 @@
   ?>
   <div class="relative">
     <h1 class="mukta text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-700 text-6xl fixed p-10 top-0 left-0 right-0 bg-gray-900">
-      Touite.
+      Touiter.
     </h1>
   </div>
 
@@ -115,6 +115,7 @@
           Register
         </button>
       </form>
+      <div class="mt-10"><p class="text-gray-500 text-sm">You're already registered ? <a href="./login.php">Signin</a></p></div>
     </div>
   </div>
 </body>

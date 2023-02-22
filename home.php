@@ -57,6 +57,7 @@ if (isset($_SESSION["connected_id"])) {
   $fetchData = "
   SELECT * FROM messages
   JOIN users ON users.ID = messages.ID_USER
+  ORDER BY messages.CREATED_AT DESC
   ";
  
 
@@ -86,7 +87,7 @@ if (isset($_SESSION["connected_id"])) {
     <form action="home.php" method="post" class="w-full m-5 text-gray-400">
       <textarea name="message" class="w-full placeholder-gray-700 mt-5 rounded-xl h-60 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"></textarea>
       <div class="flex justify-between mt-5">
-        <input type="file" class="block text-sm text-slate-500 file:py-2 file:px-4 file:rounded-xl file:border file:border-solid file:border-gray-700 file:bg-gray-900 file:text-sm file:text-gray-400 hover:file:bg-violet-100" />
+        <input type="file" name="picture" class="block text-sm text-slate-500 file:py-2 file:px-4 file:rounded-xl file:border file:border-solid file:border-gray-700 file:bg-gray-900 file:text-sm file:text-gray-400 hover:file:bg-violet-100" />
         <button type="submit" class="text-center text-gray-400 px-5 rounded-xl h-10 focus:outline-none focus:border-purple-500 bg-gradient-to-r from-purple-500 to-indigo-700 transition-transform hover:scale-[1.03] duration-500 ease-out">
           Touit
         </button>
@@ -106,15 +107,15 @@ if (isset($_SESSION["connected_id"])) {
       <div class="border-[0.5px] border-solid border-gray-700"></div>
 
       <div class="flex mt-10">
-        <div>
-          <img class="rounded-full w-10 object-cover" src="<?php echo $post["AVATAR"] ?>" alt="" />
+        <div class="w-10 h-10">
+          <img class="rounded-full w-10 h-10 object-cover" src="<?php echo $post["AVATAR"] ?>" alt="" />
         </div>
 
         <div class="text ml-5">
           <p class="text-lg">
             <span class="text-gray-200"><?php echo $post["LASTNAME"] ?></span>
             <span class="text-gray-200"><?php echo $post["FIRSTNAME"] ?></span>
-            <span class="text-gray-700"><?php echo $post["CREATED_AT"] ?></span>
+            <span class="text-gray-500"><?php echo $post["CREATED_AT"] ?></span>
           </p>
           <p class="mt-5">
             <?php echo $post["CONTENT"] ?>

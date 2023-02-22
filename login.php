@@ -66,20 +66,20 @@ session_start();
 
     <div class="flex flex-col h-screen font-mono">
       <div class="w-full px-10 text-center m-auto sm:max-w-[450px]">
-        <h1 class="text-gray-700 text-xl">Login</h1>
+        <h1 class="text-gray-500 text-xl">Login</h1>
         <form action="login.php" method="post" class="flex flex-col text-gray-400">
           <input
             type="email"
             placeholder="Email"
             name="email"
-            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
+            class="placeholder-gray-500 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
 
           <input
             type="password"
             placeholder="Password"
             name="password"
-            class="placeholder-gray-700 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
+            class="placeholder-gray-500 mt-5 rounded-xl h-14 bg-gray-900 border border-solid border-gray-700 text-sm p-5 focus:outline-none focus:border-purple-500"
           />
           <button
             type="submit"
@@ -88,6 +88,7 @@ session_start();
             Signin
           </button>
         </form>
+        <div class="mt-10"><p class="text-gray-500 text-sm">You're not yet registered ? <a href="./signup.php">Register</a></p></div>
       </div>
     </div>
   </body>
