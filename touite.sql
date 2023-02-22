@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 20, 2023 at 01:27 PM
+-- Generation Time: Feb 22, 2023 at 03:38 PM
 -- Server version: 5.7.39
 -- PHP Version: 7.4.33
 
@@ -39,7 +39,8 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`ID`, `ID_USER`, `CONTENT`, `CREATED_AT`) VALUES
-(1, 1, 'Hello', '2023-02-20 11:17:36');
+(4, 9, 'Audrey, a poet, and Dorothy, a math wiz,\r\nAt NASA they met, their friendship began to fizz,\r\nThrough late nights and long days, they worked side by side,\r\nBreaking barriers and shattering racial divides.\r\nTheir bond grew stronger, through thick and thin,\r\nA friendship unbreakable, like the stars up in the sky, so dim,\r\nTheir legacy lives on, even though they’re gone,\r\nAudrey and Dorothy Vaughan, two best friends who became one.', '2023-02-22 16:28:59'),
+(5, 10, 'Touiter c\'est trop bien, j\'adore !', '2023-02-22 16:36:05');
 
 -- --------------------------------------------------------
 
@@ -53,7 +54,7 @@ CREATE TABLE `users` (
   `LASTNAME` text NOT NULL,
   `FIRSTNAME` text NOT NULL,
   `PASSWORD` varchar(255) NOT NULL,
-  `AVATAR` mediumblob
+  `AVATAR` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -62,7 +63,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`ID`, `EMAIL`, `LASTNAME`, `FIRSTNAME`, `PASSWORD`, `AVATAR`) VALUES
 (1, 'toto@gmail.com', 'Toto', 'Tata', 'toto', NULL),
-(2, 'hello@hello.com', 'hello', 'hello', '5d41402abc4b2a76b9719d911017c592', NULL);
+(9, 'au.doyen@gmail.com', 'Doyen', 'Audrey', '8c08dc529eccf4277a402cb8f7da0c96', './avatars/63f63341bf9a09.78111076.jpg'),
+(10, 'nou.sma@gmail.com', 'Smahat', 'Noura', '2c332463df17b093eb3c15726c6e58a7', './avatars/63f636342fdb04.30597845.jpeg');
 
 --
 -- Indexes for dumped tables
@@ -89,13 +91,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `ID` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
